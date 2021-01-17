@@ -58,7 +58,7 @@
     
 }
 
--(void)testTurn{
+-(void)testTurnCurDirection{
     MarsRover *rover = [[MarsRover alloc] init];
     {
         DIREDRTION direction = [rover turn:@"L" curDirection:DIREDRTION_E];
