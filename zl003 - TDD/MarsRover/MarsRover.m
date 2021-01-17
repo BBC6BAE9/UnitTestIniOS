@@ -19,42 +19,6 @@
 
 @implementation MarsRover
 
-///*
-// 函数E：转向
-// 输入：转向命令、当前方向
-// 输出：当前方向
-// */
-//-(DIREDRTION)turn:(NSString *)cmd curDirection:(DIREDRTION)curDirection{
-//    cmd = [cmd uppercaseString];
-//    if (!([cmd isEqualToString:@"L"] || [cmd isEqualToString:@"R"])) {
-//        return  -1;
-//    }
-//    if ([cmd isEqualToString:@"L"]) {
-//        if (curDirection == DIREDRTION_S) {
-//            return DIREDRTION_E;
-//        }else if (curDirection == DIREDRTION_N) {
-//            return DIREDRTION_W;
-//        }else if (curDirection == DIREDRTION_E) {
-//            return DIREDRTION_N;
-//        }else{
-//            return DIREDRTION_S;
-//        }
-//    }
-//    if ([cmd isEqualToString:@"R"]) {
-//        if (curDirection == DIREDRTION_S) {
-//            return DIREDRTION_W;
-//        }else if (curDirection == DIREDRTION_N) {
-//            return DIREDRTION_E;
-//        }else if (curDirection == DIREDRTION_E) {
-//            return DIREDRTION_S;
-//        }else{
-//            return DIREDRTION_N;
-//        }
-//    }
-//
-//    return  -1;
-//}
-
 - (SpatialInfo)runCmds:(NSString *)cmdStr stratPosition:(Position)startPosition startDirection:(DIREDRTION)startDirection rangeX:(int)rangeX rangeY:(int)rangeY block:(void (^)(SpatialInfo info))block{
 
     NSArray *cmdArr = [cmdStr splitCmds];
@@ -63,17 +27,24 @@
     for (NSString *cmd in cmdArr) {
         if (!([cmd isEqualToString:@"L"] || [cmd isEqualToString:@"R"] || [cmd isEqualToString:@"M"])) {
             SpatialInfo startInfo = {startPosition, startDirection};
-            block(startInfo);
+            if (block) {
+                block(startInfo);
+            }
+            
         }
         if ([cmd isEqualToString:@"L"] || [cmd isEqualToString:@"R"]) {
             curDirection = [self turn:cmd curDirection:curDirection];
             SpatialInfo thisTimeInfo = {curPosition, curDirection};
-            block(thisTimeInfo);
+            if (block) {
+                block(thisTimeInfo);
+            }
         }
         if ([cmd isEqualToString:@"M"]) {
             curPosition = [self forwardCurDirection:curDirection curPosition:curPosition rangX:rangeX rangeY:rangeY];
             SpatialInfo thisTimeInfo = {curPosition, curDirection};
-            block(thisTimeInfo);
+            if (block) {
+                block(thisTimeInfo);
+            }
         }
         
 //        sleep(1);

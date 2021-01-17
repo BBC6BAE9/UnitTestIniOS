@@ -13,10 +13,11 @@
 #define kStrongSelf(type) __strong typeof(type) type = weak##type;
 
 typedef enum DIREDRTION {
-    DIREDRTION_N  = 0, // 北
+    DIREDRTION_N = 0, // 北
     DIREDRTION_E, // 东
     DIREDRTION_S, // 南
-    DIREDRTION_W // 西
+    DIREDRTION_W, // 西
+    DIREDRTION_UNKNOW
 } DIREDRTION;
 
 typedef struct{
